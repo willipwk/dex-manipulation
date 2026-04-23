@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="A Study on Controlling Dexterous Hands - Weikun Peng">
+  <meta name="description" content="A comparative study of differentiable simulation, MPPI, and reinforcement learning for controlling a dexterous LEAP hand on contact-rich grasping tasks.">
+  <meta name="keywords" content="dexterous manipulation, differentiable simulation, MPPI, reinforcement learning, LEAP hand, contact-rich control, robotics, PPO">
+  <meta name="author" content="Weikun Peng">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Simon Fraser University">
+  <meta property="og:title" content="A Study on Controlling Dexterous Hands">
+  <meta property="og:description" content="A comparative study of differentiable simulation, MPPI, and reinforcement learning for controlling a dexterous LEAP hand on contact-rich grasping tasks.">
+  <meta property="og:url" content="https://YOUR_DOMAIN.com/cmpt720-dexterous-hands">
+  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A Study on Controlling Dexterous Hands - Research Preview">
+  <meta property="article:published_time" content="2025-12-01T00:00:00.000Z">
+  <meta property="article:author" content="Weikun Peng">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Dexterous Manipulation">
+  <meta property="article:tag" content="Differentiable Simulation">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
+  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
+  <meta name="twitter:title" content="A Study on Controlling Dexterous Hands">
+  <meta name="twitter:description" content="A comparative study of differentiable simulation, MPPI, and reinforcement learning for controlling a dexterous LEAP hand on contact-rich grasping tasks.">
+  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="A Study on Controlling Dexterous Hands - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="A Study on Controlling Dexterous Hands">
+  <meta name="citation_author" content="Peng, Weikun">
+  <meta name="citation_publication_date" content="2025">
+  <meta name="citation_conference_title" content="CMPT 720 Course Project, Simon Fraser University">
+  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/CMPT720_report.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <title>A Study on Controlling Dexterous Hands - Weikun Peng | CMPT 720 Project</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "A Study on Controlling Dexterous Hands",
+    "description": "A comparative study of differentiable simulation, MPPI, and reinforcement learning for controlling a dexterous LEAP hand on contact-rich grasping tasks.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Weikun Peng",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Simon Fraser University"
+        }
+      }
+    ],
+    "datePublished": "2025-12-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CMPT 720 Course Project"
+    },
+    "url": "https://YOUR_DOMAIN.com/cmpt720-dexterous-hands",
+    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
+    "keywords": ["Dexterous Manipulation", "Differentiable Simulation", "MPPI", "Reinforcement Learning", "Robotics"],
+    "abstract": "Controlling a dexterous robotic hand to reproduce a human grasping demonstration is a challenging contact-rich control problem. We study and compare three representative methods for recovering control signals from a reference hand-object interaction trajectory: differentiable trajectory optimization, sampling-based Model Predictive Path Integral (MPPI) control, and reinforcement learning with a policy-gradient algorithm.",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://YOUR_DOMAIN.com/cmpt720-dexterous-hands"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Dexterous Manipulation"
+      },
+      {
+        "@type": "Thing", 
+        "name": "Robot Learning"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Simon Fraser University",
+    "url": "https://www.sfu.ca",
+    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
+    "sameAs": [
+      "https://twitter.com/YOUR_TWITTER_HANDLE",
+      "https://github.com/YOUR_GITHUB_USERNAME"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown -->
+  <div class="more-works-container">
+    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View Related Works">
+      <i class="fas fa-flask"></i>
+      More Works
+      <i class="fas fa-chevron-down dropdown-arrow"></i>
+    </button>
+    <div class="more-works-dropdown" id="moreWorksDropdown">
+      <div class="dropdown-header">
+        <h4>Related Works</h4>
+        <button class="close-btn" onclick="toggleMoreWorks()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="works-list">
+        <a href="https://arxiv.org/abs/2103.16021" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Nimble Physics</h5>
+            <p>Fast and feature-complete differentiable physics for articulated rigid bodies with contact.</p>
+            <span class="work-venue">arXiv 2021</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://proceedings.mlr.press/v162/suh22b.html" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Do Differentiable Simulators Give Better Policy Gradients?</h5>
+            <p>Analysis of when and why gradients through contact can be unreliable as descent directions.</p>
+            <span class="work-venue">ICML 2022</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+        <a href="https://arxiv.org/abs/1707.06347" class="work-item" target="_blank">
+          <div class="work-info">
+            <h5>Proximal Policy Optimization</h5>
+            <p>The policy-gradient algorithm used to train the reinforcement learning baseline.</p>
+            <span class="work-venue">arXiv 2017</span>
+          </div>
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">A Study on Controlling Dexterous Hands</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://willipwk.github.io/" target="_blank">Weikun Peng</a></span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">CMPT 720 Course Project</span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a href="static/pdfs/CMPT720_report.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Report</span>
+                      </a>
+                    </span>
+
+                  <span class="link-block">
+                    <a href="https://github.com/willipwk/dex-manipulation" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Controlling a dexterous robotic hand to reproduce a human grasping demonstration is a challenging contact-rich control problem. While human videos provide a convenient source of demonstrations, retargeting only yields kinematic reference poses and does not specify the forces or torques required for stable interaction with the object.
+          </p>
+          <p>
+            In this work, we study three representative methods for recovering such control signals from a reference hand-object interaction trajectory: <b>differentiable trajectory optimization</b> through a differentiable physics simulator, sampling-based <b>Model Predictive Path Integral (MPPI) control</b>, and <b>reinforcement learning</b> with a policy-gradient algorithm. We implement the three methods on the same retargeted hand-object sequence using the LEAP hand and compare them quantitatively on joint tracking, object tracking, and control effort.
+          </p>
+          <p>
+            Our results show that differentiable simulation is sample-efficient but converges to sub-optimal controls once the task becomes contact-rich, as the gradients through contact are unreliable. MPPI and reinforcement learning produce better tracking behavior but fail to establish a stable grasp, and both require substantially more samples. We discuss the trade-offs between these methods and their suitability for offline trajectory generation versus online closed-loop control.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Overview / Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            Given a sequence of retargeted robot hand poses and a reference object trajectory from a human grasping video, the goal is to find physically valid finger controls that cause the simulated LEAP hand to maintain contact with the object and induce object motion consistent with the demonstration. The global hand pose is prescribed by the retargeted trajectory, while the finger joints are controlled through either position targets or torques. We compare three representative methods:
+          </p>
+          <ul>
+            <li>
+              <b>Differentiable Trajectory Optimization.</b> We directly optimize the sequence of finger controls by backpropagating through a differentiable physics simulator (Nimble Physics). To stabilize optimization, we use a two-stage procedure: first optimize for hand-motion tracking alone, then use the result to initialize a joint optimization over hand tracking and object grasping.
+            </li>
+            <li>
+              <b>Model Predictive Path Integral (MPPI) Control.</b> A sampling-based, receding-horizon method that avoids differentiating through contact. At each step we sample 2048 perturbed control sequences with a horizon of 30 steps, roll them out in parallel in the Genesis simulator, and update the nominal control via a softmin-weighted average. The cost combines joint-tracking, object-tracking, contact-proximity, and effort terms.
+            </li>
+            <li>
+              <b>Reinforcement Learning.</b> We train a closed-loop feedback policy with PPO that maps the current finger state, reference pose, relative fingertip-object geometry, and trajectory phase to a torque command. The reward mirrors the optimization objective used by the other two methods.
+            </li>
+          </ul>
+          <p>
+            All three methods are applied to the same retargeted sequence from the DexYCB dataset on the LEAP hand, and evaluated on joint-tracking RMSE, object position error, and per-step torque RMS.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End overview -->
+
+
+<!-- Retargeting Result -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Retargeting Result</h2>
+      <div class="content has-text-justified">
+        <p>
+          We retarget a hand-object interaction sequence from the DexYCB dataset onto the LEAP hand using <i>dex-retargeting</i>. The retargeted sequence provides only kinematic reference poses &mdash; a starting point from which each control method must discover the contact forces needed to actually grasp the object.
+        </p>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="publication-video">
+            <!-- TODO: Replace with your retargeting result video -->
+            <video id="retarget-video" controls muted loop preload="metadata" style="width:100%;">
+              <source src="static/videos/retarget.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p class="has-text-centered" style="margin-top: 0.5rem;">
+            <i>Human demonstration and retargeted motion on the LEAP hand.</i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End retargeting result -->
+
+
+<!-- Method Result Videos -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Control Policy Results</h2>
+      <div class="content has-text-justified">
+        <p>
+          Below we show the resulting control policies from each method rolled out on the reference sequence. None of the methods succeeds in establishing a stable grasp, but the <em>failure modes differ</em>: differentiable simulation drifts away from the reference once contact begins, while MPPI and RL track the reference hand motion more closely but still fail to induce the demonstrated object motion.
+        </p>
+      </div>
+
+      <div class="columns is-multiline">
+        <!-- Diffsim without object -->
+        <div class="column is-half">
+          <h3 class="title is-5 has-text-centered">Differentiable Simulation (without object)</h3>
+          <video controls muted loop preload="metadata" style="width:100%;">
+            <!-- TODO: Replace with diffsim without-object video -->
+            <source src="static/videos/diffsim_hand_visualization.mp4" type="video/mp4">
+          </video>
+          <p class="has-text-centered" style="margin-top:0.25rem;">
+            <i>Hand-tracking stage: no object is present, so the fingers closely follow the reference trajectory.</i>
+          </p>
+        </div>
+        <!-- Diffsim with object -->
+        <div class="column is-half">
+          <h3 class="title is-5 has-text-centered">Differentiable Simulation (with object)</h3>
+          <video controls muted loop preload="metadata" style="width:100%;">
+            <!-- TODO: Replace with diffsim with-object video -->
+            <source src="static/videos/diffsim_hand_object_visualization.mp4" type="video/mp4">
+          </video>
+          <p class="has-text-centered" style="margin-top:0.25rem;">
+            <i>Joint hand-object stage: contact gradients degrade and the optimizer converges to a sub-optimal control sequence.</i>
+          </p>
+        </div>
+        <!-- MPPI -->
+        <div class="column is-half">
+          <h3 class="title is-5 has-text-centered">MPPI Control</h3>
+          <video controls muted loop preload="metadata" style="width:100%;">
+            <!-- TODO: Replace with MPPI result video -->
+            <source src="static/videos/mppi_visualization.mp4" type="video/mp4">
+          </video>
+          <p class="has-text-centered" style="margin-top:0.25rem;">
+            <i>Sampling-based receding-horizon control on the LEAP hand.</i>
+          </p>
+        </div>
+        <!-- RL -->
+        <div class="column is-half">
+          <h3 class="title is-5 has-text-centered">Reinforcement Learning (PPO)</h3>
+          <video controls muted loop preload="metadata" style="width:100%;">
+            <!-- TODO: Replace with RL result video -->
+            <source src="static/videos/rl_visualization.mp4" type="video/mp4">
+          </video>
+          <p class="has-text-centered" style="margin-top:0.25rem;">
+            <i>Closed-loop feedback policy trained with PPO for 1000 episodes.</i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method result videos -->
+
+
+<!-- Quantitative comparison -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Quantitative Comparison</h2>
+      <div class="content has-text-justified">
+        <p>
+          We evaluate all three methods on three per-time-step metrics: <b>joint RMSE</b> (tracking of the reference finger pose), <b>object position error</b> (tracking of the reference object trajectory), and <b>torque RMS</b> (control effort applied to the LEAP hand).
+        </p>
+        <p>
+          Before the hand makes contact, all methods track the reference hand motion fairly accurately. After contact, differentiable simulation drifts sharply because its gradients through intermittent contact are poorly conditioned; MPPI achieves the lowest tracking error overall, and RL performs slightly worse, likely because PPO has not yet converged within our training budget.
+        </p>
+      </div>
+
+      <div class="columns is-multiline has-text-centered">
+        <div class="column is-one-third">
+          <!-- TODO: Replace with joint RMSE chart image -->
+          <img src="static/images/compare_mppi_force_vs_rl_vs_diffsim__joint_rmse_1.png" alt="Joint RMSE comparison across methods" loading="lazy" style="max-width:100%;"/>
+          <p style="margin-top:0.5rem;">
+            <b>(a) Joint RMSE (rad).</b><br>
+            <span class="is-size-7">MPPI: 0.2125 &middot; RL: 0.2595 &middot; Diff. Sim. (Seq): 1.705 &middot; Diff. Sim. (Single): 0.122</span>
+          </p>
+        </div>
+        <div class="column is-one-third">
+          <!-- TODO: Replace with object position error chart image -->
+          <img src="static/images/compare_mppi_force_vs_rl_vs_diffsim__obj_pos_err_1.png" alt="Object position error comparison across methods" loading="lazy" style="max-width:100%;"/>
+          <p style="margin-top:0.5rem;">
+            <b>(b) Object position error (m).</b><br>
+            <span class="is-size-7">MPPI: 0.0986 &middot; RL: 0.1294 &middot; Diff. Sim.: 0.1664</span>
+          </p>
+        </div>
+        <div class="column is-one-third">
+          <!-- TODO: Replace with torque RMS chart image -->
+          <img src="static/images/compare_mppi_force_vs_rl_vs_diffsim__tau_rms_1.png" alt="Torque RMS comparison across methods" loading="lazy" style="max-width:100%;"/>
+          <p style="margin-top:0.5rem;">
+            <b>(c) Torque RMS (N&middot;m).</b><br>
+            <span class="is-size-7">MPPI: 0.621 &middot; RL: 0.7393 &middot; Diff. Sim. (Seq): 0.2387 &middot; Diff. Sim. (Single): 0.5676</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End quantitative comparison -->
+
+
+<!-- Optimization / Training Curves -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Optimization &amp; Training Curves</h2>
+      <div class="content has-text-justified">
+        <p>
+          We show the loss curves for the two-stage differentiable simulation optimization and the training reward for the PPO policy. The differentiable simulation loss decreases steadily in both stages, but the resulting controls are sub-optimal for the contact-rich problem. The PPO reward curve has not yet plateaued at 1000 episodes, suggesting room for improvement with a larger training budget.
+        </p>
+      </div>
+
+      <div class="columns is-multiline has-text-centered">
+        <div class="column is-one-third">
+          <!-- TODO: Replace with diffsim optimization curve image -->
+          <img src="static/images/hand_optimization_1.png" alt="Differentiable simulation optimization loss curves for the first stages" loading="lazy" style="max-width:100%;"/>
+          <p style="margin-top:0.5rem;">
+            <b>First stage differentiable simulation loss (log scale).</b><br>
+            <span class="is-size-7">Two-stage optimization: hand-tracking stage followed by joint hand-tracking and object-grasping stage.</span>
+          </p>
+        </div>
+        <div class="column is-one-third">
+          <!-- TODO: Replace with diffsim optimization curve image -->
+          <img src="static/images/hand_object_optimization_1.png" alt="Differentiable simulation optimization loss curves for the second stages" loading="lazy" style="max-width:100%;"/>
+          <p style="margin-top:0.5rem;">
+            <b>Second stage differentiable simulation loss (log scale).</b><br>
+            <span class="is-size-7">Two-stage optimization: hand-tracking stage followed by joint hand-tracking and object-grasping stage.</span>
+          </p>
+        </div>
+        <div class="column is-one-third">
+          <!-- TODO: Replace with RL training reward curve image -->
+          <img src="static/images/rl_train_reward_1.png" alt="RL training mean reward curve across episodes" loading="lazy" style="max-width:100%;"/>
+          <p style="margin-top:0.5rem;">
+            <b>PPO training mean reward.</b><br>
+            <span class="is-size-7">Raw and 25-episode moving average across 1000 training episodes.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End optimization / training curves -->
+
+
+<!-- Conclusion / Takeaways -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Key Takeaways</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li>
+              <b>Differentiable simulation</b> is highly sample-efficient but unreliable once the task becomes contact-rich &mdash; gradients through intermittent contact frequently point the optimizer toward sub-optimal solutions.
+            </li>
+            <li>
+              <b>MPPI</b> achieves the best tracking in our experiments, at the cost of thousands of parallel rollouts per planning step.
+            </li>
+            <li>
+              <b>Reinforcement learning</b> naturally produces a closed-loop feedback policy, but requires substantially more environment interaction than our training budget allowed.
+            </li>
+            <li>
+              These properties suggest complementary use cases: <b>differentiable simulation is better suited to offline trajectory generation</b>, while <b>MPPI and reinforcement learning are more appropriate for online, closed-loop control</b>.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End conclusion -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@misc{peng2025dexterous,
+  title={A Study on Controlling Dexterous Hands},
+  author={Peng, Weikun},
+  year={2025},
+  note={CMPT 720 Course Project, Simon Fraser University}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
